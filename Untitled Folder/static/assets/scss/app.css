@@ -1,0 +1,81 @@
+.game-table h1 {
+  margin: 25px 0;
+  text-align: center; }
+.game-table table {
+  margin: 0 auto;
+  table-layout: fixed;
+  border-spacing: 20px; }
+  .game-table table tr td {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border-radius: 100%; }
+    .game-table table tr td::after {
+      width: 30px;
+      height: 30px;
+      display: block;
+      position: relative;
+      border-radius: 100%;
+      z-index: 2; }
+    .game-table table tr td label {
+      z-index: 1;
+      margin: auto;
+      display: block;
+      cursor: pointer;
+      position: absolute; }
+      .game-table table tr td label .line {
+        display: block;
+        background-color: #fff;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s; }
+      .game-table table tr td label.row {
+        top: 0;
+        bottom: 0;
+        right: -95px;
+        width: 100px;
+        height: 14px; }
+        .game-table table tr td label.row .line {
+          width: 100%;
+          height: 6px;
+          margin-top: 4px; }
+      .game-table table tr td label.col {
+        left: 0;
+        right: 0;
+        width: 14px;
+        bottom: -95px;
+        height: 100px; }
+        .game-table table tr td label.col .line {
+          width: 6px;
+          height: 100%;
+          margin-left: 4px; }
+      .game-table table tr td label input {
+        display: none; }
+      .game-table table tr td label:hover .line {
+        background-color: #ddd; }
+  .game-table table tr:nth-child(odd) td:nth-child(odd) label.row, .game-table table tr:nth-child(odd) td:nth-last-child(-n+2) label.row {
+    display: none; }
+  .game-table table tr:nth-child(odd) td:nth-child(even) label input:checked + .line {
+    background-color: #00b5f7; }
+  .game-table table tr:nth-child(odd) td:nth-child(even)::after {
+    content: '';
+    background-color: #00b5f7; }
+  .game-table table tr:nth-child(even) td:nth-child(even) label.row, .game-table table tr:nth-child(even) td:last-child label.row {
+    display: none; }
+  .game-table table tr:nth-child(even) td:nth-child(odd) label input:checked + .line {
+    background-color: #fe0000; }
+  .game-table table tr:nth-child(even) td:nth-child(odd)::after {
+    content: '';
+    background-color: #fe0000; }
+  .game-table table tr:last-child td label.col {
+    display: none; }
+  .game-table table tr:nth-last-child(-n+2) td label.col {
+    display: none; }
+.game-table.blue table tr:nth-child(even) td:nth-child(odd) label input:not(:checked) + .line {
+  display: none; }
+.game-table.red table tr:nth-child(odd) td:nth-child(even) label input:not(:checked) + .line {
+  display: none; }
+
+/*# sourceMappingURL=app.css.map */

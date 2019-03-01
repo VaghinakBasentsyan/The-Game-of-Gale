@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static from staticfiles %}
+{% load template_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Game of Gale</title>
+    <link rel="stylesheet" href="{% static 'assets/css/app.css' %}">
+
+</head>
+<body>
+{% csrf_token %}
+    <div class="game-table blue">
+        <h1>The Game of Gale</h1>
+        <form name="form" method="post" action="/">
+
+            <table>
+                {% for i in 11|cell_range %}
+                <tr>
+                    {% for j in 11|cell_range %}
+                        {% if i|is_even %}
+                            {% if not j|is_even %}
+                                <td></td>
+                                <td>
+                                    <label class="row">
+                                        <input class="input" type="radio" value="{{ i }} {{ j }} row"
+                                         {%  is_checked graph i j 'row' as result %}
+                                         {% if result %}
+                                           checked= "true"
+                                         {%  endif %}
+                                        >
+                                        <span class="line"></span>
+                                    </label>
+                                    <label class="col">
+                                        <input class="input"  type="radio" value="{{ i }} {{ j }} col"
+                                        {%  is_checked graph i j 'col' as result %}
+                                        {% if result %}
+                                           checked= "true"
+                                         {%  endif %}
+                                        >
+                                        <span class="line"></span>
+                                    </label>
+                                </td>
+                            {% endif %}
+                        {% else %}
+                            {% if j|is_even %}
+                            <td>
+                                <label class="row">
+                                    <input class="input"  type="radio" value="{{ i }} {{ j }} row"
+                                    {%  is_checked graph i j 'row' as result %}
+                                    {% if result %}
+                                       checked= "true"
+                                     {%  endif %}
+                                    >
+                                    <span class="line"></span>
+                                </label>
+                                <label class="col">
+                                    <input class="input"  type="radio" value="{{ i }} {{ j }} col"
+                                    {%  is_checked graph i j 'col' as result %}
+                                    {% if result %}
+                                       checked= "true"
+                                     {%  endif %}
+                                    >
+                                    <span class="line"></span>
+                                </label>
+                            </td>
+                            <td></td>
+                            {% endif %}
+
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+    <script>
+        var inputs = document.querySelectorAll('.input');
+        var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+        inputs.forEach(input => {
+           input.addEventListener('change', (e) => {
+               var value = e.target.value.split(' ');
+               $.ajax({
+                url: '/',
+                headers: {
+                    "X-CSRFToken": token
+                },
+                data: {
+                    x: value[0],
+                    y: value[1],
+                    type: value[2]
+                },
+                processData: true,
+                type: 'POST',
+                success: function ( data ) {
+
+                },
+                    success: function(html){
+                    location.reload();
+                }
+            });
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

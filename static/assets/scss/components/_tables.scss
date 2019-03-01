@@ -1,0 +1,193 @@
+// Table styles
+
+.game-table {
+    h1 {
+        margin: 25px 0;
+        text-align: center;
+    }
+    table {
+        margin: 0 auto;
+        table-layout: fixed;
+        border-spacing: 20px;
+
+        tr {
+            td {
+                width: 30px;
+                height: 30px;
+                position: relative;
+                border-radius: 100%;
+
+                &::after {
+                    width: 30px;
+                    height: 30px;
+                    display: block;
+                    position: relative;
+                    border-radius: 100%;
+                    z-index: 2;
+                }
+
+                label {
+                    z-index: 1;
+                    margin: auto;
+                    display: block;
+                    cursor: pointer;
+                    position: absolute;
+
+                    .line {
+                        display: block;
+                        background-color: #fff;
+                        @include transition(all 0.3s);
+                    }
+
+                    &.row {
+                        top: 0;
+                        bottom: 0;
+                        right: -95px;
+                        width: 100px;
+                        height: 14px;
+
+                        .line {
+                            width: 100%;
+                            height: 6px;
+                            margin-top: 4px;
+                        }
+                    }
+
+                    &.col {
+                        left: 0;
+                        right: 0;
+                        width: 14px;
+                        bottom: -95px;
+                        height: 100px;
+
+                        .line {
+                            width: 6px;
+                            height: 100%;
+                            margin-left: 4px;
+                        }
+                    }
+
+                    input {
+                        display: none;
+                    }
+
+                    &:hover {
+                        .line {
+                            background-color: $color-grey;
+                        }
+                    }
+                }
+            }
+
+            &:nth-child(odd) {
+                td {
+                    &:nth-child(odd), &:nth-last-child(-n+2) {
+                        label {
+                            &.row {
+                                display: none;
+                            }
+                        }
+                    }
+                    &:nth-child(even) {
+                        label {
+                            input {
+                                &:checked + .line {
+                                    background-color: $color-blue;
+                                }
+                            }
+                        }
+                        &::after {
+                            content: '';
+                            background-color: $color-blue;
+                        }
+                    }
+                }
+            }
+
+            &:nth-child(even) {
+                td {
+                    &:nth-child(even), &:last-child {
+                        label {
+                            &.row {
+                                display: none;
+                            }
+                        }
+                    }
+                    &:nth-child(odd) {
+                        label {
+                            input {
+                                &:checked + .line {
+                                    background-color: $color-red;
+                                }
+                            }
+                        }
+                        &::after {
+                            content: '';
+                            background-color: $color-red;
+                        }
+                    }
+                }
+            }
+            &:last-child {
+                td {
+                    label {
+                        &.col {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            &:nth-last-child(-n+2) {
+                td {
+                    label {
+                        &.col {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.blue {
+
+        table {
+            tr {
+                &:nth-child(even) {
+                    td {
+                        &:nth-child(odd) {
+                            label {
+                                input {
+                                    &:not(:checked) + .line {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.red {
+
+        table {
+            tr {
+                &:nth-child(odd) {
+                    td {
+                        &:nth-child(even) {
+                            label {
+                                input {
+                                    &:not(:checked) + .line {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
